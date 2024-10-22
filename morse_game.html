@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Game</title>
+    <script>
+        let timeLeft = {{ time_left }};
+        function startTimer() {
+            let timer = setInterval(function() {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById("timer").innerHTML = "Time's up!";
+                    document.getElementById("submit").disabled = true;
+                    document.getElementById("exit").disabled = false;
+                } else {
+                    document.getElementById("timer").innerHTML = timeLeft + " seconds remaining";
+                }
+                timeLeft -= 1;
+            }, 1000);
+        }
+        window.onload = startTimer;
+    </script>
+</head>
+<body>
+    <h1>Morse Code: {{ morse_code }}</h1>
+    <div id="timer">15 seconds remaining</div>
+    <form method="POST">
+        <input type="text" name="answer" placeholder="Enter your guess">
+        <button type="submit" id="submit" name="next">Submit</button>
+        <button type="submit" id="exit" name="exit">Exit</button>
+    </form>
+    <h2>Score: {{ score }}</h2>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>
